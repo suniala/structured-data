@@ -118,18 +118,21 @@
           :else "No books.")))
 
 (defn books-by-author [author books]
-  :-)
+  (let [book-by-author (fn [book] (has-author? book author))]
+    (filter book-by-author books)))
 
 (defn author-by-name [name authors]
-  :-)
+  (let [name-matches (fn [author] (= name (:name author)))
+        matches (filter name-matches authors)]
+    (first matches)))
 
 (defn living-authors [authors]
-  :-)
+  (filter alive? authors))
 
 (defn has-a-living-author? [book]
-  :-)
+  (not (empty? (living-authors (:authors book)))))
 
 (defn books-by-living-authors [books]
-  :-)
+  (filter has-a-living-author? books))
 
 ; %________%
